@@ -1,12 +1,13 @@
 package main.java.com.erenkov.aleksandr.se2.model.service.impl;
 
 import main.java.com.erenkov.aleksandr.se2.model.entity.User;
+import main.java.com.erenkov.aleksandr.se2.model.repository.UserRepository;
 import main.java.com.erenkov.aleksandr.se2.model.repository.impl.SimpleUserRepository;
 import main.java.com.erenkov.aleksandr.se2.model.service.UserService;
 
 public class SimpleUserService implements UserService {
 
-    SimpleUserRepository userRepo = new SimpleUserRepository();
+    UserRepository userRepo = new SimpleUserRepository();
 
     @Override
     public User findUserByTelephoneNumber(String number) {
