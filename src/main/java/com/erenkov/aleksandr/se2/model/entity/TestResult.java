@@ -1,6 +1,5 @@
 package main.java.com.erenkov.aleksandr.se2.model.entity;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class TestResult {
@@ -10,22 +9,22 @@ public class TestResult {
 
     private Long testId;
 
-    private float difficultyFactor;
+    private double difficultyFactor;
 
     private long numberOfQuestions;
 
     private long numberOfCorrectAnswers;
 
-    private float points;
+    private double points;
 
-    private Map<String,String> result;
+    private String result;
 
 
     public TestResult() {
     }
 
     public TestResult(Long id, Long testId, String testName, float difficultyFactor, long numberOfQuestions,
-                      long numberOfCorrectAnswers, float points, Map<String, String> result) {
+                      long numberOfCorrectAnswers, double points, String result) {
         this.id = id;
         this.testId = testId;
         this.difficultyFactor = difficultyFactor;
@@ -51,11 +50,11 @@ public class TestResult {
         this.testId = testId;
     }
 
-    public float getDifficultyFactor() {
+    public double getDifficultyFactor() {
         return difficultyFactor;
     }
 
-    public void setDifficultyFactor(float difficultyFactor) {
+    public void setDifficultyFactor(double difficultyFactor) {
         this.difficultyFactor = difficultyFactor;
     }
 
@@ -75,19 +74,19 @@ public class TestResult {
         this.numberOfCorrectAnswers = numberOfCorrectAnswers;
     }
 
-    public float getPoints() {
+    public double getPoints() {
         return points;
     }
 
-    public void setPoints(float points) {
+    public void setPoints(double points) {
         this.points = points;
     }
 
-    public Map<String, String> getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Map<String, String> result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
@@ -109,10 +108,10 @@ public class TestResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestResult that = (TestResult) o;
-        return Float.compare(that.difficultyFactor, difficultyFactor) == 0 &&
+        return Double.compare(that.difficultyFactor, difficultyFactor) == 0 &&
                 numberOfQuestions == that.numberOfQuestions &&
                 numberOfCorrectAnswers == that.numberOfCorrectAnswers &&
-                Float.compare(that.points, points) == 0 &&
+                Double.compare(that.points, points) == 0 &&
                 id.equals(that.id) &&
                 testId.equals(that.testId) &&
                 result.equals(that.result);

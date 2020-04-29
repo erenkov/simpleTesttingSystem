@@ -89,4 +89,15 @@ public class Generator {
 
         return questions;
     }
+
+    public static HashSet<Test> generateTests() {
+
+        HashSet<Test> tests = new HashSet<>();
+
+        tests.add(new Test(0L,"Test_0", new HashSet<Question>()));
+        tests.add(new Test(1L,"Test_1", new HashSet<Question>()));
+
+        return tests;
+    }
+
 }

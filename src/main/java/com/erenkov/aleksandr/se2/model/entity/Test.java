@@ -1,8 +1,8 @@
 package main.java.com.erenkov.aleksandr.se2.model.entity;
 
 
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Test {
 
@@ -11,13 +11,13 @@ public class Test {
 
     private String name;
 
-    private Map<Long,Question> questions;
+    private Set<Question> questions;
 
 
     public Test() {
     }
 
-    public Test(Long id, String name, Map<Long, Question> questions) {
+    public Test(Long id, String name, Set<Question> questions) {
         this.id = id;
         this.name = name;
         this.questions = questions;
@@ -39,11 +39,11 @@ public class Test {
         this.name = name;
     }
 
-    public Map<Long, Question> getQuestions() {
+    public Set<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Map<Long, Question> questions) {
+    public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
 

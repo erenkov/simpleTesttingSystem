@@ -8,7 +8,8 @@ import java.util.Set;
 
 public class SimpleUserRepository implements UserRepository {
 
-    Set<User> users = Generator.generateUsers();
+    private Set<User> users = Generator.generateUsers();
+
 
     @Override
     public User findUserByTelephoneNumber(String number) {

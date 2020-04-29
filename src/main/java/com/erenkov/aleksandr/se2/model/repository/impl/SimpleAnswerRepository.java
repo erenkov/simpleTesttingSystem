@@ -8,7 +8,8 @@ import java.util.HashSet;
 
 public class SimpleAnswerRepository implements AnswerRepository {
 
-    HashSet<Answer> answers= Generator.generateAnswers();
+    private HashSet<Answer> answers= Generator.generateAnswers();
+
 
     @Override
     public Answer findAnswerById(Long id) {
