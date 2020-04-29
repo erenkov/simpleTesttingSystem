@@ -15,7 +15,7 @@ public class Generator {
                 0L,
                 "000",
                 "user0@mail.ru",
-                "000",
+                CryptoUnit.encrypt("000"),
                 "user0First",
                 "user0Last",
                 EnumSet.of(Role.ADMIN)));
@@ -24,7 +24,7 @@ public class Generator {
                 1L,
                 "111",
                 "user1@mail.ru",
-                "111",
+                CryptoUnit.encrypt("111"),
                 "user1First",
                 "user1Last",
                 EnumSet.of(Role.STUDENT)));
@@ -33,7 +33,7 @@ public class Generator {
                 2L,
                 "222",
                 "user2@mail.ru",
-                "222",
+                CryptoUnit.encrypt("222"),
                 "user2First",
                 "user2Last",
                 EnumSet.of(Role.TEACHER)));
@@ -42,7 +42,7 @@ public class Generator {
                 3L,
                 "333",
                 "user3@mail.ru",
-                "333",
+                CryptoUnit.encrypt("333"),
                 "user3First",
                 "user3Last",
                 EnumSet.of(Role.TEACHER, Role.ADMIN)));
@@ -94,8 +94,8 @@ public class Generator {
 
         HashSet<Test> tests = new HashSet<>();
 
-        tests.add(new Test(0L,"Test_0", new HashSet<Question>()));
-        tests.add(new Test(1L,"Test_1", new HashSet<Question>()));
+        tests.add(new Test(0L,"Test_0", "user2First", new HashSet<Question>()));
+        tests.add(new Test(1L,"Test_1", "user2First", new HashSet<Question>()));
 
         return tests;
     }

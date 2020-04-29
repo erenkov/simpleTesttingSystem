@@ -11,15 +11,18 @@ public class Test {
 
     private String name;
 
+    private String author;
+
     private Set<Question> questions;
 
 
     public Test() {
     }
 
-    public Test(Long id, String name, Set<Question> questions) {
+    public Test(Long id, String name, String author, Set<Question> questions) {
         this.id = id;
         this.name = name;
+        this.author = author;
         this.questions = questions;
     }
 
@@ -37,6 +40,14 @@ public class Test {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public Set<Question> getQuestions() {
