@@ -1,8 +1,8 @@
-package main.java.com.erenkov.aleksandr.se2.model.repository;
+package main.java.com.erenkov.aleksandr.se2.model.service;
 
 import main.java.com.erenkov.aleksandr.se2.model.entity.Question;
 
-public interface QuestionRepository {
+public interface QuestionService {
 
     Question findQuestionById(Long id);
 
@@ -11,6 +11,4 @@ public interface QuestionRepository {
     boolean saveAndFlushQuestion(Question question);
 
     boolean deleteQuestion(Question question);
-
-
 }

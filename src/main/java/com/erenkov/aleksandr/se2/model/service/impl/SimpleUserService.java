@@ -7,7 +7,8 @@ import main.java.com.erenkov.aleksandr.se2.model.service.UserService;
 
 public class SimpleUserService implements UserService {
 
-    UserRepository userRepo = new SimpleUserRepository();
+    private UserRepository userRepo = new SimpleUserRepository();
+
 
     @Override
     public User findUserByTelephoneNumber(String number) {
