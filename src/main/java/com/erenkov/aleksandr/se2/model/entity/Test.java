@@ -63,7 +63,7 @@ public class Test {
         return "Test{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", questions=" + questions +
+                ", number of questions=" + questions.size() +
                 '}';
     }
 

@@ -5,9 +5,11 @@ import main.java.com.erenkov.aleksandr.se2.model.repository.TestRepository;
 import main.java.com.erenkov.aleksandr.se2.model.repository.impl.SimpleTestRepository;
 import main.java.com.erenkov.aleksandr.se2.model.service.TestService;
 
+import java.util.Set;
+
 public class SimpleTestService implements TestService {
 
-    private TestRepository testRepo = new SimpleTestRepository();
+    private final TestRepository testRepo = new SimpleTestRepository();
 
 
     @Override
@@ -28,5 +30,15 @@ public class SimpleTestService implements TestService {
     @Override
     public boolean deleteTest(Test test) {
         return testRepo.deleteTest(test);
+    }
+
+    @Override
+    public Set<Test> getAllTests() {
+        return testRepo.getAllTests();
+    }
+
+    @Override
+    public Set<Test> findTestsByAuthor(String author) {
+        return testRepo.findTestsByAuthor(author);
     }
 }

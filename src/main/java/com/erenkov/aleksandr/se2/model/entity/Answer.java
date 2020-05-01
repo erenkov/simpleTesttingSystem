@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Answer {
 
-//    @id
+    //    @id
     private Long id;
 
     //ManyToOne question.answers
@@ -12,14 +12,17 @@ public class Answer {
 
     private String body;
 
+    private boolean correct;
+
 
     public Answer() {
     }
 
-    public Answer(Long id, Long questionId, String body) {
+    public Answer(Long id, Long questionId, String body, boolean correct) {
         this.id = id;
         this.questionId = questionId;
         this.body = body;
+        this.correct = correct;
     }
 
     public Long getId() {
@@ -46,12 +49,21 @@ public class Answer {
         this.body = body;
     }
 
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
+    }
+
     @Override
     public String toString() {
         return "Answer{" +
                 "id=" + id +
                 ", questionId=" + questionId +
                 ", body='" + body + '\'' +
+                ", correct=" + correct +
                 '}';
     }
 
@@ -60,13 +72,14 @@ public class Answer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Answer answer = (Answer) o;
-        return id.equals(answer.id) &&
+        return correct == answer.correct &&
+                id.equals(answer.id) &&
                 questionId.equals(answer.questionId) &&
                 body.equals(answer.body);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, questionId, body);
+        return Objects.hash(id, questionId, body, correct);
     }
 }

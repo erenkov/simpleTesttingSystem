@@ -7,7 +7,7 @@ import main.java.com.erenkov.aleksandr.se2.model.service.QuestionService;
 
 public class SimpleQuestionService implements QuestionService {
 
-    private QuestionRepository questionRepo = new SimpleQuestionRepository();
+    private final QuestionRepository questionRepo = new SimpleQuestionRepository();
 
 
     @Override

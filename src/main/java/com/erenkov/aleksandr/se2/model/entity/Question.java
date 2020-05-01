@@ -14,28 +14,24 @@ public class Question {
     private String body;
 
 //    @Column //OneToMany answer.id
-    private Set<Long> answers;
-
-    //@Column //OneToOne answer.id
-    private Long correctAnswerNumber;
+    private Set<Answer> answers;
 
 //    @Column // Может быть использовано для распределения вопросов по темам в будущем
     private String section;
 
-//    @Column // Коэфициент за сложность вопроса
+//    @Column // Коэфициент за сложность вопроса в будущем
 //    @Min(1)
 //    @Max(10)
-    private float factor;
+    private double factor;
 
 
     public Question() {
     }
 
-    public Question(Long id, String body, Set<Long> answers, Long correctAnswerNumber, String section, float factor) {
+    public Question(Long id, String body, Set<Answer> answers, String section, double factor) {
         this.id = id;
         this.body = body;
         this.answers = answers;
-        this.correctAnswerNumber = correctAnswerNumber;
         this.section = section;
         this.factor = factor;
     }
@@ -56,20 +52,12 @@ public class Question {
         this.body = body;
     }
 
-    public Set<Long> getAnswers() {
+    public Set<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<Long> answers) {
+    public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
-    }
-
-    public Long getCorrectAnswerNumber() {
-        return correctAnswerNumber;
-    }
-
-    public void setCorrectAnswerNumber(Long correctAnswerNumber) {
-        this.correctAnswerNumber = correctAnswerNumber;
     }
 
     public String getSection() {
@@ -80,11 +68,11 @@ public class Question {
         this.section = section;
     }
 
-    public float getFactor() {
+    public double getFactor() {
         return factor;
     }
 
-    public void setFactor(float factor) {
+    public void setFactor(double factor) {
         this.factor = factor;
     }
 
@@ -94,7 +82,6 @@ public class Question {
                 "id=" + id +
                 ", body='" + body + '\'' +
                 ", answers=" + answers +
-                ", correctAnswerNumber=" + correctAnswerNumber +
                 ", section='" + section + '\'' +
                 ", factor=" + factor +
                 '}';
@@ -109,12 +96,11 @@ public class Question {
                 id.equals(question.id) &&
                 body.equals(question.body) &&
                 answers.equals(question.answers) &&
-                correctAnswerNumber.equals(question.correctAnswerNumber) &&
                 section.equals(question.section);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, body, answers, correctAnswerNumber, section, factor);
+        return Objects.hash(id, body, answers, section, factor);
     }
 }

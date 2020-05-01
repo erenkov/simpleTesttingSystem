@@ -5,9 +5,11 @@ import main.java.com.erenkov.aleksandr.se2.model.repository.UserRepository;
 import main.java.com.erenkov.aleksandr.se2.model.repository.impl.SimpleUserRepository;
 import main.java.com.erenkov.aleksandr.se2.model.service.UserService;
 
+import java.util.Set;
+
 public class SimpleUserService implements UserService {
 
-    private UserRepository userRepo = new SimpleUserRepository();
+    private final UserRepository userRepo = new SimpleUserRepository();
 
 
     @Override
@@ -29,4 +31,11 @@ public class SimpleUserService implements UserService {
     public boolean deleteUser(User user) {
         return userRepo.deleteUser(user);
     }
+
+    @Override
+    public Set<User> getAllUsers() {
+        return userRepo.getAllUsers();
+    }
+
+
 }

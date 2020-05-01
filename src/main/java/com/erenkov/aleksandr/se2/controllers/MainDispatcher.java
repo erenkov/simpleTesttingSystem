@@ -16,22 +16,22 @@ import static main.java.com.erenkov.aleksandr.se2.view.SimpleConsolePrinter.*;
 
 public class MainDispatcher {
 
+
     public static void runApp() {
 
         UserService userService = new SimpleUserService();
+        StringBuilder buffer;
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
 
             ln2();
             writeGreeting();
 
-
             for (; ; ) { //FOREVER
-
                 ln2();
                 print("Please enter a phone number or \"exit\":");
 
-                StringBuilder buffer = new StringBuilder(bufferedReader.readLine());
+                buffer = new StringBuilder(bufferedReader.readLine());
                 if (buffer.toString().equals("exit")) {
                     break;
                 }
@@ -44,6 +44,8 @@ public class MainDispatcher {
 
                 print("Please enter a password:");
 
+                //todo если работать в cmd а не в IDE использовать System.console().readPassword();
+                //                                              ,чтобы не выводить пароль на печать
                 buffer = new StringBuilder(bufferedReader.readLine());
 
                 if (!user.getEncryptedPassword().equals(CryptoUnit.encrypt(buffer.toString()))) {
@@ -60,28 +62,31 @@ public class MainDispatcher {
                 switch (buffer.toString()) {
                     case "0":
                         if (secure(user, Role.ADMIN)) {
-                            AdminController.toControl();
+                            AdminController.toControl(user);
                         } else {
                             print("Sorry, you have not permit !!!");
                         }
                         break;
                     case "1":
-                        if(secure(user, Role.STUDENT)) {
-                        StudentController.toControl();
-                    }  else{
-                        print("Sorry, you have not permit !!!");
-                    }
-                    break;
+                        if (secure(user, Role.STUDENT)) {
+                            StudentController.toControl(user);
+                        } else {
+                            print("Sorry, you have not permit !!!");
+                        }
+                        break;
                     case "2":
-                        if(secure(user, Role.TEACHER)) {
-                        TeacherController.toControl();
-                    }  else{
-                        print("Sorry, you have not permit !!!");
-                    }
-                    break;
+                        if (secure(user, Role.TEACHER)) {
+                            TeacherController.toControl(user);
+                        } else {
+                            print("Sorry, you have not permit !!!");
+                        }
+                        break;
                     default:
-                        print("role not found");
+                        print("Sorry, role not found");
+                        continue;
                 }
+                print("Goodbye!!!");
+                break;
             }
         } catch (IOException e) {
             System.err.print(e.toString()); //todo что я тут делаю?

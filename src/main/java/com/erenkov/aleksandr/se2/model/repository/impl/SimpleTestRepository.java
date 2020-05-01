@@ -5,6 +5,8 @@ import main.java.com.erenkov.aleksandr.se2.model.repository.TestRepository;
 import main.java.com.erenkov.aleksandr.se2.utils.Generator;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SimpleTestRepository implements TestRepository {
 
@@ -35,5 +37,18 @@ public class SimpleTestRepository implements TestRepository {
     @Override
     public boolean deleteTest(Test test) {
         return tests.remove(test);
+    }
+
+    @Override
+    public Set<Test> getAllTests() {
+        return tests;
+    }
+
+    @Override
+    public Set<Test> findTestsByAuthor(String author) {
+        return tests.stream()
+                .filter(t -> t.getAuthor().equals(author))
+                .collect(Collectors.toSet());
+
     }
 }

@@ -10,7 +10,6 @@ public class SimpleUserRepository implements UserRepository {
 
     private Set<User> users = Generator.generateUsers();
 
-
     @Override
     public User findUserByTelephoneNumber(String number) {
         return users.stream()
@@ -37,5 +36,17 @@ public class SimpleUserRepository implements UserRepository {
         return users.remove(user);
     }
 
+    @Override
+    public Set<User> getAllUsers() {
+        return users;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
 }

@@ -9,11 +9,11 @@ public class SimpleConsolePrinter {
     }
 
     public static void writeGreeting(){
-        print("Hello! This is \"SimpleTester\" utils by Erenkov Aleksandr, vers " + vers + ". Let`s go");
+        print("   Hello! This is \"SimpleTester\" utils by Erenkov Aleksandr, vers " + vers + ". Let`s go");
     }
 
     public static void ln1(){
-        print("============================================================================================");
+        print("--------------------------------------------------------------------------------------------");
     }
 
     public static void ln2(){

@@ -9,13 +9,13 @@ public class TestResult {
 
     private Long testId;
 
-    private double difficultyFactor;
+    private String studentName;
 
-    private long numberOfQuestions;
+    private double testFactor;
 
-    private long numberOfCorrectAnswers;
+    private long questionsNumber;
 
-    private double points;
+    private long correctAnswersNumber;
 
     private String result;
 
@@ -23,14 +23,13 @@ public class TestResult {
     public TestResult() {
     }
 
-    public TestResult(Long id, Long testId, String testName, float difficultyFactor, long numberOfQuestions,
-                      long numberOfCorrectAnswers, double points, String result) {
+    public TestResult(Long id, Long testId, String studentName, double testFactor, long questionsNumber, long correctAnswersNumber, String result) {
         this.id = id;
         this.testId = testId;
-        this.difficultyFactor = difficultyFactor;
-        this.numberOfQuestions = numberOfQuestions;
-        this.numberOfCorrectAnswers = numberOfCorrectAnswers;
-        this.points = points;
+        this.studentName = studentName;
+        this.testFactor = testFactor;
+        this.questionsNumber = questionsNumber;
+        this.correctAnswersNumber = correctAnswersNumber;
         this.result = result;
     }
 
@@ -50,36 +49,36 @@ public class TestResult {
         this.testId = testId;
     }
 
-    public double getDifficultyFactor() {
-        return difficultyFactor;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setDifficultyFactor(double difficultyFactor) {
-        this.difficultyFactor = difficultyFactor;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public long getNumberOfQuestions() {
-        return numberOfQuestions;
+    public double getTestFactor() {
+        return testFactor;
     }
 
-    public void setNumberOfQuestions(long numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
+    public void setTestFactor(double testFactor) {
+        this.testFactor = testFactor;
     }
 
-    public long getNumberOfCorrectAnswers() {
-        return numberOfCorrectAnswers;
+    public long getQuestionsNumber() {
+        return questionsNumber;
     }
 
-    public void setNumberOfCorrectAnswers(long numberOfCorrectAnswers) {
-        this.numberOfCorrectAnswers = numberOfCorrectAnswers;
+    public void setQuestionsNumber(long questionsNumber) {
+        this.questionsNumber = questionsNumber;
     }
 
-    public double getPoints() {
-        return points;
+    public long getCorrectAnswersNumber() {
+        return correctAnswersNumber;
     }
 
-    public void setPoints(double points) {
-        this.points = points;
+    public void setCorrectAnswersNumber(long correctAnswersNumber) {
+        this.correctAnswersNumber = correctAnswersNumber;
     }
 
     public String getResult() {
@@ -95,11 +94,11 @@ public class TestResult {
         return "TestResult{" +
                 "id=" + id +
                 ", testId=" + testId +
-                ", difficultyFactor=" + difficultyFactor +
-                ", numberOfQuestions=" + numberOfQuestions +
-                ", numberOfCorrectAnswers=" + numberOfCorrectAnswers +
-                ", points=" + points +
-                ", result=" + result +
+                ", studentName=" + studentName +
+                ", testFactor=" + testFactor +
+                ", questionsNumber=" + questionsNumber +
+                ", correctAnswersNumber=" + correctAnswersNumber +
+                ", result=\n" + result +
                 '}';
     }
 
@@ -108,17 +107,17 @@ public class TestResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestResult that = (TestResult) o;
-        return Double.compare(that.difficultyFactor, difficultyFactor) == 0 &&
-                numberOfQuestions == that.numberOfQuestions &&
-                numberOfCorrectAnswers == that.numberOfCorrectAnswers &&
-                Double.compare(that.points, points) == 0 &&
+        return Double.compare(that.testFactor, testFactor) == 0 &&
+                questionsNumber == that.questionsNumber &&
+                correctAnswersNumber == that.correctAnswersNumber &&
                 id.equals(that.id) &&
                 testId.equals(that.testId) &&
+                studentName.equals(that.studentName) &&
                 result.equals(that.result);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, testId, difficultyFactor, numberOfQuestions, numberOfCorrectAnswers, points, result);
+        return Objects.hash(id, testId, studentName, testFactor, questionsNumber, correctAnswersNumber, result);
     }
 }

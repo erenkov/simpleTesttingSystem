@@ -1,6 +1,12 @@
 package main.java.com.erenkov.aleksandr.se2.utils;
 
 import main.java.com.erenkov.aleksandr.se2.model.entity.*;
+import main.java.com.erenkov.aleksandr.se2.model.service.AnswerService;
+import main.java.com.erenkov.aleksandr.se2.model.service.QuestionService;
+import main.java.com.erenkov.aleksandr.se2.model.service.TestService;
+import main.java.com.erenkov.aleksandr.se2.model.service.impl.SimpleAnswerService;
+import main.java.com.erenkov.aleksandr.se2.model.service.impl.SimpleQuestionService;
+import main.java.com.erenkov.aleksandr.se2.model.service.impl.SimpleTestService;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -51,27 +57,22 @@ public class Generator {
 
     }
 
-    public static Test generateTest() {
-        //todo userGenerator
-        return new Test();
-    }
-
     public static HashSet<Answer> generateAnswers() {
 
         HashSet<Answer> answers = new HashSet<>();
 
-        answers.add(new Answer(0L, 0L, "Answer_1 (question_0)"));
-        answers.add(new Answer(1L, 0L, "Answer_2 (question_0)"));
-        answers.add(new Answer(2L, 1L, "Answer_1 (question_1)"));
-        answers.add(new Answer(3L, 1L, "Answer_2 (question_1)"));
-        answers.add(new Answer(4L, 2L, "Answer_1 (question_2)"));
-        answers.add(new Answer(5L, 2L, "Answer_2 (question_2)"));
-        answers.add(new Answer(6L, 3L, "Answer_1 (question_3)"));
-        answers.add(new Answer(7L, 3L, "Answer_2 (question_3)"));
-        answers.add(new Answer(8L, 4L, "Answer_1 (question_4)"));
-        answers.add(new Answer(9L, 4L, "Answer_2 (question_4)"));
-        answers.add(new Answer(10L, 5L, "Answer_1 (question_5)"));
-        answers.add(new Answer(11L, 5L, "Answer_2 (question_5)"));
+        answers.add(new Answer(0L, 0L, "Answer_1_(question_0)", true));
+        answers.add(new Answer(1L, 0L, "Answer_2_(question_0)", false));
+        answers.add(new Answer(2L, 1L, "Answer_1_(question_1)", true));
+        answers.add(new Answer(3L, 1L, "Answer_2_(question_1)", false));
+        answers.add(new Answer(4L, 2L, "Answer_1_(question_2)", true));
+        answers.add(new Answer(5L, 2L, "Answer_2_(question_2)", false));
+        answers.add(new Answer(6L, 3L, "Answer_1_(question_3)", true));
+        answers.add(new Answer(7L, 3L, "Answer_2_(question_3)", false));
+        answers.add(new Answer(8L, 4L, "Answer_1_(question_4)", true));
+        answers.add(new Answer(9L, 4L, "Answer_2_(question_4)", false));
+        answers.add(new Answer(10L, 5L, "Answer_1_(question_5)", true));
+        answers.add(new Answer(11L, 5L, "Answer_2_(question_5)", false));
 
         return answers;
     }
@@ -80,12 +81,14 @@ public class Generator {
 
         HashSet<Question> questions = new HashSet<>();
 
-        questions.add(new Question(0L, "Question_0:", new HashSet<Long>(), 0L, "section_1", 5.0F));
-        questions.add(new Question(1L, "Question_1:", new HashSet<Long>(), 2L, "section_1", 5.0F));
-        questions.add(new Question(2L, "Question_2:", new HashSet<Long>(), 4L, "section_1", 5.0F));
-        questions.add(new Question(3L, "Question_3:", new HashSet<Long>(), 7L, "section_1", 5.0F));
-        questions.add(new Question(4L, "Question_4:", new HashSet<Long>(), 9L, "section_1", 5.0F));
-        questions.add(new Question(5L, "Question_5:", new HashSet<Long>(), 11L, "section_1", 5.0F));
+        AnswerService answerService = new SimpleAnswerService();
+
+        questions.add(new Question(0L, "Question_0:", answerService.findAnswersByQuestionId(0L), "section_1", 5.0F));
+        questions.add(new Question(1L, "Question_1:", answerService.findAnswersByQuestionId(1L), "section_1", 5.0F));
+        questions.add(new Question(2L, "Question_2:", answerService.findAnswersByQuestionId(2L), "section_1", 5.0F));
+        questions.add(new Question(3L, "Question_3:", answerService.findAnswersByQuestionId(3L), "section_1", 5.0F));
+        questions.add(new Question(4L, "Question_4:", answerService.findAnswersByQuestionId(4L), "section_1", 5.0F));
+        questions.add(new Question(5L, "Question_5:", answerService.findAnswersByQuestionId(5L), "section_1", 5.0F));
 
         return questions;
     }
@@ -94,10 +97,84 @@ public class Generator {
 
         HashSet<Test> tests = new HashSet<>();
 
-        tests.add(new Test(0L,"Test_0", "user2First", new HashSet<Question>()));
-        tests.add(new Test(1L,"Test_1", "user2First", new HashSet<Question>()));
+        QuestionService questionService = new SimpleQuestionService();
+
+        HashSet<Question> questionForTest0 = new HashSet<>();
+
+        HashSet<Question> questionForTest1 = new HashSet<>();
+
+        questionForTest0.add(questionService.findQuestionById(0L));
+        questionForTest0.add(questionService.findQuestionById(2L));
+        questionForTest0.add(questionService.findQuestionById(4L));
+        tests.add(new Test(0L, "Test_0", "user2First", questionForTest0));
+
+        questionForTest1.add(questionService.findQuestionById(1L));
+        questionForTest1.add(questionService.findQuestionById(3L));
+        questionForTest1.add(questionService.findQuestionById(5L));
+        tests.add(new Test(1L, "Test_1", "user3First", questionForTest1));
 
         return tests;
     }
+
+    public static HashSet<TestResult> generateTestResults() {
+
+        HashSet<TestResult> testResults = new HashSet<>();
+        TestService testService = new SimpleTestService();
+
+
+        testResults.add(new TestResult(0L,
+                0L,
+                "user1First",
+                testService.findTestById(0L)
+                        .getQuestions()
+                        .stream()
+                        .mapToDouble(Question::getFactor)
+                        .average()
+                        .orElse(Double.NaN),
+                testService.findTestById(0L).getQuestions().size(),
+                3L,
+                testService
+                        .findTestById(0L)
+                        .getQuestions()
+                        .stream()
+                        .map(q -> q.getBody() + " " + q
+                                .getAnswers()
+                                .stream()
+                                .filter(Answer::isCorrect)
+                                .map(Answer::getBody)
+                                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                                + "\n")
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString()));
+
+
+        testResults.add(new TestResult(1L,
+                1L,
+                "user1First",
+                testService.findTestById(1L)
+                        .getQuestions()
+                        .stream()
+                        .mapToDouble(Question::getFactor)
+                        .average()
+                        .orElse(Double.NaN),
+                testService.findTestById(1L).getQuestions().size(),
+                3L,
+                testService
+                        .findTestById(1L)
+                        .getQuestions()
+                        .stream()
+                        .map(q -> q.getBody() + " " + q
+                                .getAnswers()
+                                .stream()
+                                .filter(Answer::isCorrect)
+                                .map(Answer::getBody)
+                                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                                + "\n")
+                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                        .toString()));
+
+        return testResults;
+    }
+
 
 }

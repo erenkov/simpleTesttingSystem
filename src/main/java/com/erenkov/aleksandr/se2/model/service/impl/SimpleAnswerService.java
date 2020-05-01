@@ -5,9 +5,11 @@ import main.java.com.erenkov.aleksandr.se2.model.repository.AnswerRepository;
 import main.java.com.erenkov.aleksandr.se2.model.repository.impl.SimpleAnswerRepository;
 import main.java.com.erenkov.aleksandr.se2.model.service.AnswerService;
 
-public class SimpleAnswerServiceI implements AnswerService {
+import java.util.Set;
 
-    private AnswerRepository answerRepo = new SimpleAnswerRepository();
+public class SimpleAnswerService implements AnswerService {
+
+    private final AnswerRepository answerRepo = new SimpleAnswerRepository();
 
 
     @Override
@@ -23,5 +25,10 @@ public class SimpleAnswerServiceI implements AnswerService {
     @Override
     public boolean deleteAnswer(Answer answer) {
         return answerRepo.deleteAnswer(answer);
+    }
+
+    @Override
+    public Set<Answer> findAnswersByQuestionId(long id) {
+        return answerRepo.findAnswersByQuestionId(id);
     }
 }

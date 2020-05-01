@@ -2,12 +2,13 @@ package main.java.com.erenkov.aleksandr.se2.model.repository.impl;
 
 import main.java.com.erenkov.aleksandr.se2.model.entity.TestResult;
 import main.java.com.erenkov.aleksandr.se2.model.repository.TestResultRepository;
+import main.java.com.erenkov.aleksandr.se2.utils.Generator;
 
 import java.util.HashSet;
 
 public class SimpleTestResultRepository implements TestResultRepository {
 
-    private HashSet<TestResult> testResults = new HashSet<>();
+    private HashSet<TestResult> testResults = Generator.generateTestResults();
 
     @Override
     public TestResult findTestResultById(Long id) {
