@@ -5,6 +5,8 @@ import main.java.com.erenkov.aleksandr.se2.model.repository.TestResultRepository
 import main.java.com.erenkov.aleksandr.se2.utils.Generator;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SimpleTestResultRepository implements TestResultRepository {
 
@@ -26,5 +28,12 @@ public class SimpleTestResultRepository implements TestResultRepository {
     @Override
     public boolean deleteTestResult(TestResult testResult) {
         return testResults.remove(testResult);
+    }
+
+    @Override
+    public Set<TestResult> findTestResultsByTestId(long id) {
+        return testResults.stream()
+                .filter(t -> t.getTestId().equals(id))
+                .collect(Collectors.toSet());
     }
 }

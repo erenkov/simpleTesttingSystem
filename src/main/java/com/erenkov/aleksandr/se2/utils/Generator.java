@@ -10,6 +10,7 @@ import main.java.com.erenkov.aleksandr.se2.model.service.impl.SimpleTestService;
 
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Generator {
 
@@ -52,6 +53,43 @@ public class Generator {
                 "user3First",
                 "user3Last",
                 EnumSet.of(Role.TEACHER, Role.ADMIN)));
+
+        users.add(new User(     // create user4, ADMIN
+                4L,
+                "444",
+                "user4@mail.ru",
+                CryptoUnit.encrypt("444"),
+                "user4First",
+                "user4Last",
+                EnumSet.of(Role.ADMIN)));
+
+        users.add(new User(     //  create user5, STUDENT
+                5L,
+                "555",
+                "user5@mail.ru",
+                CryptoUnit.encrypt("555"),
+                "user5First",
+                "user5Last",
+                EnumSet.of(Role.STUDENT)));
+
+        users.add(new User(     //  create user6, TEACHER
+                6L,
+                "666",
+                "user6@mail.ru",
+                CryptoUnit.encrypt("666"),
+                "user6First",
+                "user6Last",
+                EnumSet.of(Role.TEACHER)));
+
+        users.add(new User(     //  create user7, ADMIN, TEACHER
+                7L,
+                "777",
+                "user7@mail.ru",
+                CryptoUnit.encrypt("777"),
+                "user7First",
+                "user7Last",
+                EnumSet.of(Role.TEACHER, Role.ADMIN)));
+
 
         return users;
 
@@ -100,18 +138,28 @@ public class Generator {
         QuestionService questionService = new SimpleQuestionService();
 
         HashSet<Question> questionForTest0 = new HashSet<>();
-
-        HashSet<Question> questionForTest1 = new HashSet<>();
-
         questionForTest0.add(questionService.findQuestionById(0L));
         questionForTest0.add(questionService.findQuestionById(2L));
         questionForTest0.add(questionService.findQuestionById(4L));
         tests.add(new Test(0L, "Test_0", "user2First", questionForTest0));
 
+        HashSet<Question> questionForTest1 = new HashSet<>();
         questionForTest1.add(questionService.findQuestionById(1L));
         questionForTest1.add(questionService.findQuestionById(3L));
         questionForTest1.add(questionService.findQuestionById(5L));
         tests.add(new Test(1L, "Test_1", "user3First", questionForTest1));
+
+        HashSet<Question> questionForTest2 = new HashSet<>();
+        questionForTest2.add(questionService.findQuestionById(0L));
+        questionForTest2.add(questionService.findQuestionById(2L));
+        questionForTest2.add(questionService.findQuestionById(4L));
+        tests.add(new Test(2L, "Test_2", "user3First", questionForTest2));
+
+        HashSet<Question> questionForTest3 = new HashSet<>();
+        questionForTest3.add(questionService.findQuestionById(1L));
+        questionForTest3.add(questionService.findQuestionById(3L));
+        questionForTest3.add(questionService.findQuestionById(5L));
+        tests.add(new Test(3L, "Test_3", "user7First", questionForTest3));
 
         return tests;
     }
@@ -142,10 +190,10 @@ public class Generator {
                                 .stream()
                                 .filter(Answer::isCorrect)
                                 .map(Answer::getBody)
-                                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                                .collect(Collectors.joining())
                                 + "\n")
-                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                        .toString()));
+                        .collect(Collectors.joining())
+        ));
 
 
         testResults.add(new TestResult(1L,
@@ -168,13 +216,63 @@ public class Generator {
                                 .stream()
                                 .filter(Answer::isCorrect)
                                 .map(Answer::getBody)
-                                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                                .collect(Collectors.joining())
                                 + "\n")
-                        .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                        .toString()));
+                        .collect(Collectors.joining())
+        ));
+
+        testResults.add(new TestResult(2L,
+                0L,
+                "user5First",
+                testService.findTestById(0L)
+                        .getQuestions()
+                        .stream()
+                        .mapToDouble(Question::getFactor)
+                        .average()
+                        .orElse(Double.NaN),
+                testService.findTestById(0L).getQuestions().size(),
+                3L,
+                testService
+                        .findTestById(0L)
+                        .getQuestions()
+                        .stream()
+                        .map(q -> q.getBody() + " " + q
+                                .getAnswers()
+                                .stream()
+                                .filter(Answer::isCorrect)
+                                .map(Answer::getBody)
+                                .collect(Collectors.joining())
+                                + "\n")
+                        .collect(Collectors.joining())
+                        ));
+
+
+        testResults.add(new TestResult(3L,
+                3L,
+                "user1First",
+                testService.findTestById(3L)
+                        .getQuestions()
+                        .stream()
+                        .mapToDouble(Question::getFactor)
+                        .average()
+                        .orElse(Double.NaN),
+                testService.findTestById(3L).getQuestions().size(),
+                3L,
+                testService
+                        .findTestById(3L)
+                        .getQuestions()
+                        .stream()
+                        .map(q -> q.getBody() + " " + q
+                                .getAnswers()
+                                .stream()
+                                .filter(Answer::isCorrect)
+                                .map(Answer::getBody)
+                                .collect(Collectors.joining())
+                                + "\n")
+                        .collect(Collectors.joining())
+                        ));
 
         return testResults;
     }
-
 
 }

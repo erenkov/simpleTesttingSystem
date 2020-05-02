@@ -46,9 +46,9 @@ public class TeacherController {
                     ln1();
 
                     if ((buffer.toString().matches("[0-9]*")) && (tests.get(buffer.toString()) != null)) {
-                        print("\n");
                         print("Test id = " + buffer.toString() + ". Results:");
-                        print(testResultServiceService.findTestResultById(Long.valueOf(buffer.toString())).toString());
+                        print(testResultServiceService.findTestResultsByTestId(Long.parseLong(buffer.toString()))
+                                .stream().map(tR -> tR.toString() + "\n").collect(Collectors.joining()));
                     } else {
                         print("Error!!! It's not digit, or this test is not available!");
                     }
