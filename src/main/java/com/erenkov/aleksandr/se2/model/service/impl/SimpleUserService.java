@@ -37,5 +37,13 @@ public class SimpleUserService implements UserService {
         return userRepo.getAllUsers();
     }
 
+    public String getStringRoles(User user) {
+        return user
+                .getRoles()
+                .stream()
+                .map(r -> "\"" + r.ordinal() + "\" - " + r.name() + ", ")
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
 
 }

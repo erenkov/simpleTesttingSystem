@@ -1,5 +1,6 @@
 package main.java.com.erenkov.aleksandr.se2.controllers;
 
+import main.java.com.erenkov.aleksandr.se2.model.entity.Test;
 import main.java.com.erenkov.aleksandr.se2.model.entity.User;
 import main.java.com.erenkov.aleksandr.se2.model.service.TestResultService;
 import main.java.com.erenkov.aleksandr.se2.model.service.TestService;
@@ -8,7 +9,8 @@ import main.java.com.erenkov.aleksandr.se2.model.service.impl.SimpleTestService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static main.java.com.erenkov.aleksandr.se2.view.SimpleConsolePrinter.*;
 import static main.java.com.erenkov.aleksandr.se2.view.SimpleConsolePrinter.print;
@@ -19,46 +21,45 @@ public class TeacherController {
     static TestResultService testResultServiceService = new SimpleTestResultService();
 
 
-    public static void toControl(User user) {
+    public static void toControl(User user, BufferedReader bufferedReader) throws IOException {
 
         StringBuilder buffer;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+        for (; ; ) { //FOREVER
+            ln2();
+            print("     Teacher panel");
+            ln1();
 
-            for (; ; ) { //FOREVER
-                ln2();
-                print("     Teacher panel");
-                ln1();
-                print("enter \"0\" to view Your Tests or \"exit\" to exit:");
-                buffer = new StringBuilder(bufferedReader.readLine());
-                switch (buffer.toString()) {
-                    case "0":
-                        int i = 0;
-                        testService.findTestsByAuthor(user.getFirstName()).forEach(t-> print(t.toString()));
-                        ln1();
-                        print("Enter Test id to view results:");
-                        buffer = new StringBuilder(bufferedReader.readLine());
-                        ln1();
+            buffer = read("enter \"0\" to view Your Tests or \"back\" to back to main menu:", bufferedReader);
 
-                        if(buffer.toString().matches("[0-9]*")) {
-                            print("\n");
-                            print("Test id = " + buffer.toString() + ". Results:");
-                            print(testResultServiceService.findTestResultById(Long.valueOf(buffer.toString())).toString());
-                        } else  {
-                            print("Error!! Its not digit!!!");
-                        }
-                        continue;
-                    case "back":
-                        break;
-                    default:
-                        print("Error! Sorry, try again");
-                        continue;
-                }
-                break;
+            switch (buffer.toString()) {
+                case "0":
+                    Map<String, Test> tests = testService
+                            .findTestsByAuthor(user.getFirstName())
+                            .stream()
+                            .collect(Collectors.toMap(t -> t.getId().toString(), t -> t));
+
+                    tests.forEach((k, t) -> print(t.toString()));
+
+                    ln1();
+                    buffer = read("Enter Test id to view results:", bufferedReader);
+                    ln1();
+
+                    if ((buffer.toString().matches("[0-9]*")) && (tests.get(buffer.toString()) != null)) {
+                        print("\n");
+                        print("Test id = " + buffer.toString() + ". Results:");
+                        print(testResultServiceService.findTestResultById(Long.valueOf(buffer.toString())).toString());
+                    } else {
+                        print("Error!!! It's not digit, or this test is not available!");
+                    }
+                    continue;
+                case "back":
+                    break;
+                default:
+                    print("Error! Sorry, try again");
+                    continue;
             }
-        } catch (
-                IOException e) {
-            System.err.print(e.toString()); //todo что я тут делаю?
+            break;
         }
     }
 }

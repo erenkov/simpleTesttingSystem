@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SimpleAnswerRepository implements AnswerRepository {
 
-    private HashSet<Answer> answers= Generator.generateAnswers();
+    private final HashSet<Answer> answers = Generator.generateAnswers();
 
 
     @Override

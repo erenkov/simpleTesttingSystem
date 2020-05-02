@@ -14,7 +14,7 @@ public interface TestService {
 
     boolean deleteTest(Test test);
 
-   Set<Test> getAllTests();
+    Set<Test> getAllTests();
 
     Set<Test> findTestsByAuthor(String author);
 

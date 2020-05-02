@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SimpleTestRepository implements TestRepository {
 
-    private HashSet<Test> tests = Generator.generateTests();
+    private final HashSet<Test> tests = Generator.generateTests();
 
 
     @Override

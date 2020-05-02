@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class SimpleTestResultRepository implements TestResultRepository {
 
-    private HashSet<TestResult> testResults = Generator.generateTestResults();
+    private final HashSet<TestResult> testResults = Generator.generateTestResults();
 
     @Override
     public TestResult findTestResultById(Long id) {

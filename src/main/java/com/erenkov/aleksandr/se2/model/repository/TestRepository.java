@@ -17,5 +17,4 @@ public interface TestRepository {
     Set<Test> getAllTests();
 
     Set<Test> findTestsByAuthor(String author);
-
 }

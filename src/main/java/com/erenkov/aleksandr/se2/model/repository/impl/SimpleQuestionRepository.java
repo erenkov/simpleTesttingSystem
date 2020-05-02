@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class SimpleQuestionRepository implements QuestionRepository {
 
-    private HashSet<Question> questions = Generator.generateQuestions();
+    private final HashSet<Question> questions = Generator.generateQuestions();
 
 
     @Override

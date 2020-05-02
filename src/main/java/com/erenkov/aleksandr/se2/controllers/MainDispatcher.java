@@ -16,7 +16,6 @@ import static main.java.com.erenkov.aleksandr.se2.view.SimpleConsolePrinter.*;
 
 public class MainDispatcher {
 
-
     public static void runApp() {
 
         UserService userService = new SimpleUserService();
@@ -24,15 +23,15 @@ public class MainDispatcher {
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
 
-            ln2();
+            ln2();                          //Приветсвенное сообщение и горизонтальная линия
             writeGreeting();
+            ln2();
 
-            for (; ; ) { //FOREVER
-                ln2();
-                print("Please enter a phone number or \"exit\":");
+            for (; ; ) { // FOREVER - чтение информации от пользователя. Выход "exit" => break
 
-                buffer = new StringBuilder(bufferedReader.readLine());
+                buffer = read("Please enter a phone number or \"exit\":", bufferedReader);
                 if (buffer.toString().equals("exit")) {
+                    print("Goodbye!");
                     break;
                 }
 
@@ -42,55 +41,49 @@ public class MainDispatcher {
                     continue;
                 }
 
-                print("Please enter a password:");
-
                 //todo если работать в cmd а не в IDE использовать System.console().readPassword();
                 //                                              ,чтобы не выводить пароль на печать
-                buffer = new StringBuilder(bufferedReader.readLine());
+                buffer = read("Please enter a password:", bufferedReader);
 
                 if (!user.getEncryptedPassword().equals(CryptoUnit.encrypt(buffer.toString()))) {
                     print("Failed password! Try again");
                     continue;
                 }
+
                 ln1();
                 print("Hello Mr. " + user.getFirstName() + " " + user.getLastName());
-                print("You has role : " + user.getRoles().toString());
-                print("what role to use? 0 - ADMIN, 1 - STUDENT, 2 - TEACHER");
+                print("You have roles : " + user.getRoles().toString());
 
-                buffer = new StringBuilder(bufferedReader.readLine());
+                buffer = read("what role to use? " + userService.getStringRoles(user), bufferedReader);
 
                 switch (buffer.toString()) {
                     case "0":
                         if (secure(user, Role.ADMIN)) {
-                            AdminController.toControl(user);
+                            AdminController.toControl(user, bufferedReader);
                         } else {
                             print("Sorry, you have not permit !!!");
                         }
                         break;
                     case "1":
                         if (secure(user, Role.STUDENT)) {
-                            StudentController.toControl(user);
+                            StudentController.toControl(user, bufferedReader);
                         } else {
                             print("Sorry, you have not permit !!!");
                         }
                         break;
                     case "2":
                         if (secure(user, Role.TEACHER)) {
-                            TeacherController.toControl(user);
+                            TeacherController.toControl(user, bufferedReader);
                         } else {
                             print("Sorry, you have not permit !!!");
                         }
                         break;
                     default:
                         print("Sorry, role not found");
-                        continue;
                 }
-                print("Goodbye!!!");
-                break;
             }
         } catch (IOException e) {
-            System.err.print(e.toString()); //todo что я тут делаю?
+            e.printStackTrace();
         }
     }
-
 }

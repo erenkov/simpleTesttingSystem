@@ -15,4 +15,6 @@ public interface UserService {
     boolean deleteUser(User user);
 
     Set<User> getAllUsers();
-}
+
+    String getStringRoles(User user);
+    }

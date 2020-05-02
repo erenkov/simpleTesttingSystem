@@ -11,6 +11,4 @@ public interface QuestionRepository {
     boolean saveAndFlushQuestion(Question question);
 
     boolean deleteQuestion(Question question);
-
-
 }

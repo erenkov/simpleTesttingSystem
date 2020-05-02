@@ -12,6 +12,5 @@ public interface AnswerRepository {
 
     boolean deleteAnswer(Answer answer);
 
-    Set<Answer>  findAnswersByQuestionId(long id);
-
+    Set<Answer> findAnswersByQuestionId(long id);
 }

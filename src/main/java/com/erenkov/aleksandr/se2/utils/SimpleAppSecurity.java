@@ -10,5 +10,4 @@ public class SimpleAppSecurity {
         return user.getRoles().contains(role);
     }
 
-
 }
